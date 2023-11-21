@@ -3,6 +3,7 @@ import '../css/TeaCarousel.css'
 import { teaFetch } from '../../api/dataApi';
 import DetailedView from './DetailedView';
 import UserContext from '../../contexts/UserContext';
+import SkeletonTeaCarousel from '../Skeletons/SkeletonTeaCarousel';
 
 export default function TeaCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,16 +42,16 @@ export default function TeaCarousel() {
   }
 
   if (teaData.length === 0 ) {
-    return <div>Loading...</div>
+    return <SkeletonTeaCarousel />
   }
 
   return (
     !selectedTea ? (
-      <div className='teaCarousel'>
+      <div className='tea-carousel-page'>
         <button onClick={prevPage}>Previous</button>
-        <div className='teaCarouselContainer'>
+        <div className='tea-card-container'>
           {[...teaData, ...teaData].slice(currentIndex, currentIndex + teasPerPage).map((tea, index) => (
-            <div className='teaCard' onClick={() => handleDetailView(tea)} key={index}>
+            <div className={`tea-card ${index === 1 ? 'middle-tea-card' : ''}`} onClick={() => handleDetailView(tea)} key={index}>
               <img className='teaImage' src={tea.image} alt={tea.name} />
               <p className='teaName'>{tea.name}</p>
             </div>

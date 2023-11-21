@@ -1,0 +1,54 @@
+.skeleton {
+    opacity: 0.7;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(200, 20%, 70%);
+        }
+    
+    100% {
+        background-color: hsl(200, 20%, 95%);
+        }
+    }
+
+    /* .skeleton-carousel-page { 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        translate: 0 90%;
+    }
+    .skeleton-teacard-container { 
+        display: flex;
+        width: 50%;
+        justify-content: space-between;
+        margin-inline: 50px;
+    } */
+    .skeleton-tea-card { 
+        border: 2px solid black;
+        aspect-ratio: 9/14;
+        width: 12vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 45px;
+        overflow: hidden;
+        opacity: 0.7;
+        animation: skeleton-loading 1s linear infinite alternate;
+    }
+    .skeleton-middle-card { 
+        border: 2px solid black;
+        aspect-ratio: 9/14;
+        width: 13vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 45px;
+        overflow: hidden;
+        transform: translateY(60px);
+        opacity: 0.7;
+        animation: skeleton-loading 1s linear infinite alternate;
+    }
+
+    

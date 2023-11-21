@@ -1,3 +1,4 @@
+
 /* .teaCarousel {
 } */
 body {
@@ -32,21 +33,41 @@ p {
     display: block;
 }
 
-.teaCarouselContainer {
+.tea-carousel-page{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
+    translate: 0 90%;
 }
 
-.teaCard {
+.tea-card-container {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    margin-inline: 50px;
+}
+
+.tea-card {
     border: 2px solid black;
     aspect-ratio: 9/14;
-    /* width: 10vw;  */
-    width: 10vw;
+    width: 12vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border-radius: 45px;
     overflow: hidden;
+}
+
+.middle-tea-card {
+    border: 2px solid black;
+    aspect-ratio: 9/14;
+    width: 13vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 45px;
+    overflow: hidden;
+    transform: translateY(60px);
 }
 
 .teaName {
@@ -59,3 +80,5 @@ p {
     max-width: 100%;
     max-height: 80%;
 }
+
+

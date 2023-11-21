@@ -1,6 +1,7 @@
 import { coffeeFetch } from "../api/dataApi"
 import { useEffect, useState } from "react"
 import Rating from '@mui/material/Rating';
+import '../components/css/Skeleton.css'
 
 import AddCoffee from "../features/Coffee/AddCoffee"
 
@@ -29,7 +30,7 @@ export default function Coffee() {
                 <div key={capitalizeWords(coffee.name)} className="coffee-card">
                     <div className="coffee-header-image">
                         <h1>{capitalizeWords(coffee.name)}</h1>
-                        <img className="coffee-thumbnail" src={coffee.picture}/>
+                        <img className="coffee-thumbnail skeleton" src={coffee.picture}/>
                     </div>
                     <div className="coffee-interactive-info">
                         <p>{coffee.description}</p>
