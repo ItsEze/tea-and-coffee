@@ -5,6 +5,10 @@ from coffee_api.models import Coffee
 class Users(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     favorites = models.ManyToManyField(Coffee, related_name='favorited_by', blank=True)
+    first_name=models.TextField(max_length=50,blank=True)
+    last_name=models.TextField(max_length=50,blank=True)
+    about_me = models.CharField(max_length=250, blank=True)
+    picture = models.FileField(upload_to="profile/", blank=True, null=True)
 
     def add_favorite(self, coffee_id):
         # Check if the coffee is not already in favorites

@@ -33,6 +33,7 @@ export default function Coffee() {
         setFilteredCoffees([])
     }
 
+
     const getUserData = async () => {
         const fetchedData = await userDataFetch();
         setFavorites(fetchedData.favorites)
@@ -103,14 +104,17 @@ export default function Coffee() {
                 <div key={index}>
                     <div className="coffee-card">
                         <div className="coffee-header-image">
-                            <img className="coffee-thumbnail" src={coffee.picture}/>
+                            <img className="img-fluid" src={coffee.picture}/>
                         </div>
                         <div className="coffee-interactive-info">
                             <h1>{capitalizeWords(coffee.name)}</h1> 
                             <p>{coffee.description}</p>
                             <div className="interactive-footer">
                                 <h4>{coffee.rating}<Rating name="read-only" value={coffee.rating}readOnly/></h4>
-                                <h4>Caffeine - {coffee.caffeine}mg/Serving</h4>
+                                <div className="caffeine-typography">
+                                <h4>Caffeine:</h4>
+                                <h4>{coffee.caffeine}mg/Serving</h4>
+                                </div>
                                 <FavoriteButton coffee={coffee} isFavorite={isCoffeeFavorite}/>
                                 <h4 className='interactive-h4' onClick={() => handleViewReviews(index)}> {index == openReviewIndex ? 'Close Reviews' : 'See Reviews'}</h4>
                                 <h4 className='interactive-h4' id={buttonId} onClick={buttonHandler}>

@@ -10,6 +10,9 @@ import Footer from './components/TeaNavigation/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Documentation from './pages/Documentation';
+import Profile from './pages/Profile';
+import { userDataFetch } from './api/dataApi';
+import Contacts from './pages/Contacts';
 
 
 
@@ -19,10 +22,17 @@ function App() {
   const [userToken, setUserToken] = useState(null)
   const [checked, setChecked] = useState(false)
   const [signUp, setSignUp ] = useState(false)
+  const [ userData, setUserData ] = useState(null)
+
+  const getUserData = async () => {
+    const fetchedData = await userDataFetch();
+    setUserData(fetchedData)
+}
 
 
   useEffect( () => {
     const token = localStorage.getItem("token")
+    getUserData()
     console.log(token)
     if(token) {
       setUserToken(token)
@@ -67,17 +77,19 @@ function App() {
 
   return (
     <>
-    <UserContext.Provider value={{userToken}}>
+    <UserContext.Provider value={{userToken, userData}}>
       <Router>
         {userToken && (<ResponsiveAppBar handleLogout={handleLogout} />)}
         <div className='body'>
         <Routes>
           <Route path="/" element={<Login setChecked={setChecked} checked={checked} handleOnClick={handleOnClick} handleInputChange={handleInputChange} formData={formData} handleToken={handleToken} token={userToken} signUp={signUp} handleSignUp={handleSignUp}/>} />
           <Route path="favorites" element={<Favorites/>}/>
+          <Route path="profile" element={<Profile/>}/>
           <Route path="coffee" element={<Coffee/>}/>
           <Route path="home" element={<Home/>}/>
           <Route path="about" element={<About/>}/>
           <Route path='documentation' element={<Documentation />}/>
+          <Route path="contacts" element={<Contacts/>}/>
       </Routes>
         </div>
         {userToken && (<Footer />)}

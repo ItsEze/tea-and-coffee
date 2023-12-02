@@ -35,16 +35,15 @@ class CoffeeReview(APIView):
         return Response(serializer.data)
       
     def put(self, request):
-        print('first')
         review_data = request.data
-        print('requestdata', request.data)
-
         pk = review_data.get('pk')
+        coffee_id = review_data.get('coffee_id')
         review = Review.objects.get(pk=pk)
-
         review.text = review_data.get('text')
         review.rating = review_data.get('rating')
         review.save()
+        coffee = Coffee.objects.get(id=coffee_id)
+        coffee.update_rating()
 
         serializer = ReviewSerializer(review)
         
@@ -62,6 +61,11 @@ class CoffeeReview(APIView):
 
 
 class CoffeeLikes(APIView):
+    def get(self, request):
+        user = request.user
+        user_reviews = Review.objects.filter(user=user)
+        serializer = ReviewSerializer(user_reviews, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     def post(self, request):
         review_data = request.data
         review_id = review_data.get('review_id')

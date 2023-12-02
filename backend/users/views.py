@@ -48,6 +48,7 @@ class FavoriteCoffee(APIView):
     def post(self, request):
         coffee_id = request.data.get('coffee_id')  # Assuming the coffee_id is sent in the request data
         user = request.user
+        print(user, 'this is user')
 
         try:
             app_user = Users.objects.get(user=user)
@@ -74,3 +75,25 @@ class FavoriteCoffee(APIView):
 
         except Users.DoesNotExist:
             return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+class UserProfile(APIView):
+    def put(self, request):
+        user = request.user
+        user_profile = Users.objects.get(user=user)
+
+        # Access form data using request.data.get
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        about_me = request.data.get('about_me')
+        picture = request.data.get('picture')
+
+        # Update the instance with the new data
+        user_profile.first_name = first_name
+        user_profile.last_name = last_name
+        user_profile.about_me = about_me
+        user_profile.picture = picture
+
+        # Save the updated instance
+        user_profile.save()
+
+        return Response({"result": "Profile updated successfully"})

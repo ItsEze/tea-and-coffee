@@ -58,6 +58,20 @@ export async function addCoffeeReview(reviewData) {
     return body;
   }
 
+
+export async function removeCoffeeReview(reviewData) {
+  const userToken = localStorage.getItem('token');
+  const payload = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `token ${userToken}`,
+    },
+    body: JSON.stringify({coffee_id: reviewData.coffee_id, pk: reviewData.pk})
+  };
+  await basicFetch(`${API_BASE_URL}/v1/coffee/review/`, payload)
+}
+
 export async function addFavorite(coffeeId) {
   const userToken = localStorage.getItem('token');
   const payload = {
@@ -118,3 +132,19 @@ export async function userDataFetch() {
     const body = await basicFetch(`${API_BASE_URL}/v1/coffee/favorites/users`, payload);
     return body;
 }
+
+export async function handleLikesFetch(reviewId) {
+  console.log('starting with', reviewId)
+  const userToken = localStorage.getItem('token');
+  const payload = {
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `token ${userToken}`,
+    },
+    body: JSON.stringify({review_id: reviewId})
+  }
+  const body = await basicFetch(`${API_BASE_URL}/v1/coffee/likes/all`, payload)
+  return body
+}
+
