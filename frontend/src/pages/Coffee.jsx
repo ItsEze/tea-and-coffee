@@ -114,7 +114,7 @@ export default function Coffee() {
                                         <button className='btn btn-link interactive-btn' onClick={() => handleViewReviews(index)}>
                                         {index === openReviewIndex ? 'Close Reviews' : 'See Reviews'}
                                         </button>
-                                        <button className='btn btn-link interactive-btn' id={buttonId} onClick={buttonHandler}>
+                                        <button type='button' className='btn btn-link interactive-btn' data-bs-toggle='modal' data-bs-target='#' id={buttonId} onClick={buttonHandler}>
                                         {hasUserReview ? 'Edit Review' : 'Add Review'}
                                         </button>
                                     </div>

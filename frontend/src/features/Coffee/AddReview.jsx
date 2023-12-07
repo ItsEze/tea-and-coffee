@@ -2,6 +2,7 @@ import { useState, useContext, useRef, useEffect } from "react";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { addCoffeeReview } from "../../api/dataApi";
+import { Rating } from "@mui/material";
 
 export default function AddReview({ coffeeId, handleAddReview }) {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function AddReview({ coffeeId, handleAddReview }) {
   const [errors, setErrors] = useState(null);
 
   const handleTextChange = (e) => setText(e.target.value);
-  const handleRatingChange = (e) => setRating(e.target.value);
+  const handleRatingChange = (e) => setRating(parseInt(e.target.value));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,20 +50,17 @@ export default function AddReview({ coffeeId, handleAddReview }) {
           {errors && <h4>{JSON.stringify(errors)}</h4>}
 
           <div className="share-input">
+          <Rating name='rating' value={rating} precision={1} onChange={handleRatingChange}/>
+          </div>
+
+          <div className="share-input">
             <textarea
               className="input-description"
               placeholder="Review Text"
               value={text}
               onChange={handleTextChange}
+              rows={5}
             ></textarea>
-          </div>
-
-          <div className="share-input">
-            <input
-              placeholder="Rating"
-              value={rating}
-              onChange={handleRatingChange}
-            ></input>
           </div>
 
           <div className="share-submit">

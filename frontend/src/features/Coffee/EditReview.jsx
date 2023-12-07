@@ -3,6 +3,8 @@ import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { addCoffeeReview, editCoffeeReview, removeCoffeeReview } from "../../api/dataApi";
 import { MdNoAdultContent } from "react-icons/md";
+import { Rating } from "@mui/material";
+import DeleteReview from "./DeleteReview";
 
 export default function EditReview({ coffeeId, handleEditReview, selectedUserReview, editReviewForm }) {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ export default function EditReview({ coffeeId, handleEditReview, selectedUserRev
   const [text, setText] = useState("");
   const [rating, setRating] = useState("");
   const [errors, setErrors] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null)
 
   const deleteData = {
     coffee_id: coffeeId,
@@ -57,14 +60,20 @@ export default function EditReview({ coffeeId, handleEditReview, selectedUserRev
         }
     }
 
+    const handleDeleteConfirmation = () => {
+      setConfirmDelete(!confirmDelete)
+    }
+
   return (
     <>
       <div className="modal-overlay" onClick={handleOffClick}>
         <div className="modal-content">
-        <button className="btn btn-danger" onClick={()=> handleDelete(deleteData)}>Delete Review</button>
           <h1>Edit Your Review</h1>
           {errors && <h4>{JSON.stringify(errors)}</h4>}
         
+          <div className="share-input">
+          <Rating name='rating' value={rating} precision={1} onChange={handleRatingChange}/>
+          </div>
 
           <div className="share-input">
             <textarea
@@ -72,22 +81,19 @@ export default function EditReview({ coffeeId, handleEditReview, selectedUserRev
               placeholder="Review Text"
               value={text}
               onChange={handleTextChange}
+              // rows={5}
             ></textarea>
           </div>
 
-          <div className="share-input">
-            <input
-              placeholder="Rating"
-              value={rating}
-              onChange={handleRatingChange}
-            ></input>
-          </div>
-
-          <div className="share-submit">
-            <button className="share-button" onClick={handleSubmit}></button>
+          <div className="share-submit" style={{display: 'flex', justifyContent:'space-evenly'}}>
+            <button className="edit-review-submit-btn" onClick={handleSubmit}>Submit</button>
+            <button className="edit-review-delete-btn" onClick={() => handleDeleteConfirmation()}>Delete Review</button>
           </div>
         </div>
       </div>
+      {confirmDelete && (
+        <DeleteReview handleDelete={handleDelete} deleteData={deleteData} handleDeleteConfirmation={handleDeleteConfirmation}/>
+      )}
     </>
   );
 }

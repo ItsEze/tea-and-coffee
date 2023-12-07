@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom"
+import { Rating } from "@mui/material";
 
 export default function AddCoffee({handleAddCoffee, getCoffeeData={getCoffeeData}}){
 
@@ -38,10 +39,10 @@ export default function AddCoffee({handleAddCoffee, getCoffeeData={getCoffeeData
     
 
     const addCoffee = async (coffeeObj) => {
-        const base_url = import.meta.env.VITE_BASE_URL
+        // const base_url = import.meta.env.VITE_BASE_URL
         // http://127.0.0.1:8000/api
         // const base_url = "localhost:8000"
-        // const base_url = "127.0.0.1:8000"
+        const base_url = "127.0.0.1:8000"
 
         const url = `http://${base_url}/api/v1/coffee/`
         let formData = new FormData()
@@ -106,7 +107,7 @@ export default function AddCoffee({handleAddCoffee, getCoffeeData={getCoffeeData
                 <input placeholder='Caffeine Content: mg/serving' value={caffeine} name="caffeine" onChange={handleCaffeineChange}></input>
             </div>
             <div className="share-input">
-                <input placeholder='Rating' value={rating} name="rating" onChange={handleRatingChange}></input>
+                <Rating name='rating' value={rating} precision={1} onChange={handleRatingChange}/>
             </div>
             <div className="share-input">
                 <input type="file" name="coffeeImage" onChange={handlePictureChange}></input>
