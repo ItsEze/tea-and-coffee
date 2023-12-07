@@ -32,7 +32,6 @@ export default function AddProfile( { handleAddProfile, getUserData }) {
     const addProfile = async (profileData) => {
         console.log(profileData, 'this is getting into addProfile')
         // const base_url = import.meta.env.VITE_BASE_URL
-        // const base_url = "localhost:8000"
         const base_url = "127.0.0.1:8000"
 
         const url = `http://${base_url}/api/v1/users/profile`
@@ -61,21 +60,38 @@ export default function AddProfile( { handleAddProfile, getUserData }) {
     return (
         <>
         {errors && <h4>{JSON.stringify(errors)}</h4>}
-        <div className="share-input">
-                <input placeholder='first name' value={firstName} name="firstName" onChange={handleFirstNameChange}></input>
+        <div className="modal-dialogue modal-dialogue-centered">
+            <div className="modal-dialogue">
+                <div className="modal-content" style={{width: "30%"}}>
+                    <div className="modal-header">
+                        <h3 className="modal-title">
+                        Update your profile!
+                        </h3>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal-dialogue" aria-label="Close" onClick={handleAddProfile}></button>
+                    </div>
+        
+        <div className="" style={{width: "90%"}}>
+        <div className="input-group mb-2 mt-2">
+                <input placeholder='first name' className="form-control" value={firstName} name="firstName" onChange={handleFirstNameChange}></input>
             </div>
-            <div className="share-input">
-                <input placeholder='last name' value={lastName} name="lastName" onChange={handleLastNameChange}></input>
+            <div className="input-group mb-2">
+                <input placeholder='last name' className="form-control" value={lastName} name="lastName" onChange={handleLastNameChange}></input>
             </div>
-            <div className="share-input">
-                <textarea className='input-description' placeholder='Something about you' name="aboutMe" value={aboutMe}  onChange={handleAboutMeChange}></textarea>
+            <div className="input-group mb-2">
+                <textarea className="form-control" placeholder='Something about you' name="aboutMe" value={aboutMe}  onChange={handleAboutMeChange}></textarea>
             </div>
-            <div className="share-input">
-                <input type="file" name="profileImage" onChange={handlePictureChange}></input>
+            <div className="input-group mb-2">
+                <input type="file" className="form-control" name="profileImage" onChange={handlePictureChange}></input>
+            </div>
+
             </div>
             <div className="share-submit">
                 <button className='share-button' onClick={handleSubmit}>Submit</button>
             </div>
+
+            </div>
+            </div>
+        </div>
         </>
     )
 }

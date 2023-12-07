@@ -11,6 +11,10 @@ class CoffeeSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     favorites = CoffeeSerializer(many=True, read_only=True)
+    username = serializers.SerializerMethodField()
+
+    def get_username(self, obj):
+        return obj.user.username if obj.user else None
 
     class Meta:
         model = Users

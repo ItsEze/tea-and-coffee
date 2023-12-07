@@ -1,7 +1,3 @@
-import { useState, useEffect } from "react";
-import { userSearchFetch } from "../../api/dataApi";
-import UserSearchCard from "./UserSearchCard";
-
 const SearchProfile = ({ searchInfo , handleSearchChange, handleSearchUser }) => {
 
   return (

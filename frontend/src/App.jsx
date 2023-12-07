@@ -8,20 +8,20 @@ import Coffee from './pages/Coffee';
 import './index.css'
 import Home from './pages/Home';
 import About from './pages/About';
-import Documentation from './pages/Documentation';
 import Profile from './pages/Profile';
 import { userDataFetch, coffeeFetch } from './api/dataApi';
 import Contacts from './pages/Contacts';
-import SearchProfile from './features/UserProfile/SearchProfile';
+import UserSearch from './pages/UserSearch';
 
 function App() {
-
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [userToken, setUserToken] = useState(null)
   const [checked, setChecked] = useState(false)
   const [signUp, setSignUp ] = useState(false)
   const [ userData, setUserData ] = useState(null)
+  const [userSearchData, setUserSearchData ] = useState(null)
   const [ coffees, setCoffees ] = useState([])
+  const [searchInfo, setSearchInfo] = useState("");
 
   const getCoffeeData = async () => {
     const fetchedCoffees = await coffeeFetch();
@@ -83,18 +83,17 @@ function App() {
 
   return (
     <>
-    <UserContext.Provider value={{userToken, userData, coffees, setCoffees}}>
+    <UserContext.Provider value={{userToken, userData, setUserData, coffees, setCoffees, userSearchData, setUserSearchData , searchInfo, setSearchInfo}}>
       <Router>
         {userToken && (<ResponsiveAppBar handleLogout={handleLogout} />)}
         <Routes>
           <Route path="/" element={<Login setChecked={setChecked} checked={checked} handleOnClick={handleOnClick} handleInputChange={handleInputChange} formData={formData} handleToken={handleToken} token={userToken} signUp={signUp} handleSignUp={handleSignUp}/>} />
           <Route path="favorites" element={<Favorites/>}/>
           <Route path="profile" element={<Profile getUserData={getUserData}/>}/>
+          <Route path="userSearch" element={<UserSearch />}/>
           <Route path="coffee" element={<Coffee />}/>
-          <Route path="coffee" element={<Coffee/>}/>
           <Route path="home" element={<Home/>}/>
           <Route path="about" element={<About/>}/>
-          <Route path='documentation' element={<Documentation />}/>
           <Route path="contacts" element={<Contacts/>}/>
       </Routes>
       </Router>

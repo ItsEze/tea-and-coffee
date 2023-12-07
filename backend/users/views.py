@@ -4,6 +4,7 @@ from .serializers import SignupSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import JsonResponse
 from rest_framework import status
 from .user_serializers import UserSerializer
 from .models import Users
@@ -85,22 +86,28 @@ class FavoriteCoffee(APIView):
         
 class UserProfile(APIView):
     def put(self, request):
-        user = request.user
-        user_profile = Users.objects.get(user=user)
+        try:
+            user = request.user
+            user_profile = Users.objects.get(user=user)
+      
 
-        # Access form data using request.data.get
-        first_name = request.data.get('first_name')
-        last_name = request.data.get('last_name')
-        about_me = request.data.get('about_me')
-        picture = request.data.get('picture')
+            # Access form data using request.data.get
+            first_name = request.data.get('first_name')
+            last_name = request.data.get('last_name')
+            about_me = request.data.get('about_me')
+            picture = request.data.get('picture')
 
-        # Update the instance with the new data
-        user_profile.first_name = first_name
-        user_profile.last_name = last_name
-        user_profile.about_me = about_me
-        user_profile.picture = picture
+            # Update the instance with the new data
+            user_profile.first_name = first_name
+            user_profile.last_name = last_name
+            user_profile.about_me = about_me
+            user_profile.picture = picture
 
-        # Save the updated instance
-        user_profile.save()
+            # Save the updated instance
+            user_profile.save()
+            serializer = UserSerializer(user_profile)
 
-        return Response({"result": "Profile updated successfully"})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            return JsonResponse({'error': 'Internal Server Error'}, status=500)

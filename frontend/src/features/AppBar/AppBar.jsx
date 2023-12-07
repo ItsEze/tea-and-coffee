@@ -28,16 +28,12 @@ const menuItems = [
       label: 'Contact Us',
       path: 'contacts'
     },
-    // {
-    //   label: 'Documentation',
-    //   path: 'documentation'
-    // }
   ];
 
 export default function ResponsiveAppBar({handleLogout}) {
   const {userData } = useContext(UserContext)
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#795548' /* Brown color */ }}>
+    <AppBar position="static" sx={{ backgroundColor: '#3C180E' /* Brown color */ }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>

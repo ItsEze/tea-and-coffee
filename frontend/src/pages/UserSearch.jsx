@@ -1,16 +1,11 @@
-// Favorites.js
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect, useContext } from 'react';
-import UserContext from '../contexts/UserContext';
-import { userDataFetch, removeFavorite, userSearchFetch } from '../api/dataApi';
-import FavoritesCard from '../features/Favorites/FavoritesCard';
-import UserSearchCard from '../features/UserProfile/UserSearchCard';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext, useEffect } from "react"
+import UserContext from "../contexts/UserContext"
+import UserSearchCard from "../features/UserProfile/UserSearchCard";
 
-export default function Favorites() {
-  const navigate = useNavigate()
-  const {userData, setUserData, userSearchData, setUserSearchData, searchInfo, setSearchInfo } = useContext(UserContext)
-  const [favorites, setFavorites] = useState(null);
+
+export default function UserSearch () {
+  const {userSearchData} = useContext(UserContext)
+  const [favorites, setFavorites] = useState([]);
   const [reviews, setReviews] = useState(null);
   const [selectedCoffee, setSelectedCoffee] = useState([]);
   const [likesTotalList, setLikesTotalList] = useState([]);
@@ -22,22 +17,10 @@ export default function Favorites() {
     setListVisible(!isListVisible);
   };
 
-  const handleSearchUser = async (searchInfo) => {
-    const fetchedData = await userSearchFetch(searchInfo);
-    setUserSearchData(fetchedData);
-    toggleListVisibility();
-    navigate('/userSearch')
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchInfo(e.target.value);
-  };
-
   const handleReviews = (reviews) => {
     setReviews(reviews);
     toggleListVisibility();
   };
-
 
   const handleClose = () => {
     setShowLikesInfo(false);
@@ -68,31 +51,39 @@ export default function Favorites() {
       .join(" ");
   };
 
-  const getUserData = async () => {
-    const fetchedData = await userDataFetch();
-    setUserData(fetchedData);
-    setFavorites(fetchedData.favorites);
-  };
-
-  const removeFromFavorites = async (coffeeId) => {
-    await removeFavorite(coffeeId);
-    setFavorites((prevFavorites) => prevFavorites.filter((coffee) => coffee.id !== coffeeId));
-  };
-
   useEffect(() => {
-    getUserData();
-  }, []);
+    if (userSearchData) {
+      // Set favorites to userSearchData.favorites
+      setFavorites(userSearchData.favorites);
 
-  return (
-    <>
-      <div className='container' style={{ maxWidth: '70%' }}>
-      <h2>Search to find what other users have added to their favorites list!</h2>
-      <div className="d-flex justify-content-center align-items-center">
-        <input value={searchInfo} onChange={handleSearchChange}></input>
-        <button className="btn btn-success m-2" onClick={() => handleSearchUser(searchInfo)}>
-          Search User
-        </button>
-      </div>
+      // Set reviews by mapping over favorites and joining reviews
+      const allReviews = userSearchData.favorites.flatMap(
+        (favorite) => favorite.reviews || []
+      );
+      setReviews(allReviews);
+    } else {
+      // If userSearchData is not available, reset the state
+      setFavorites(null);
+      setReviews([]);
+    }
+  }, [userSearchData]);
+    console.log(userSearchData, 'if this works...')
+    console.log(userSearchData.favorites, 'these are the favorites supposably')
+    return (
+        <>
+        <div className="container">
+        <div className="flex-column">
+        <h1 className="mt-4 mb-4">{userSearchData.username}</h1>
+        <img src={userSearchData.picture} alt="Profile Pic" className="round img-fluid float-start" style={{width: '200px'}}/>
+        </div>
+        <div className="row">
+        <h3 className="p-4 row m-4 text-start">{userSearchData.about_me}</h3>
+        <h3>more info</h3>
+        <h3>And even more info</h3>
+        </div>
+       
+        </div>
+        <div className="container" style={{ maxWidth: '70%' }}>
         {showLikesInfo && (
           <div className="modal-favorites">
             <div className="modal-content">
@@ -106,17 +97,16 @@ export default function Favorites() {
           </div>
         )}
         <div className="row">
-            <FavoritesCard
+            <UserSearchCard
               favorites={favorites}
               handleReviews={handleReviews}
               handleLikes={handleLikes}
-              removeFromFavorites={removeFromFavorites}
               isListVisible={isListVisible}
               toggleListVisibility={toggleListVisibility}
               reviews={reviews}
             />
         </div>
-      </div>
-    </>
-  );
+        </div>
+        </>
+    )
 }

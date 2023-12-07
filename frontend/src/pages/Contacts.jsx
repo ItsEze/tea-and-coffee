@@ -4,6 +4,13 @@ import TextField from '@mui/material/TextField';
 import SimpleSnackbar from '../features/Contacts/ContactsSnack';
 import { useState } from 'react';
 import FormControl from '@mui/material/FormControl';
+import gitHubIcon from '../assets/githubblack.png'
+import linkdinIcon from '../assets/LinkedIN.png'
+import coolDeveloperLogo from '../assets/linkdinphoto.jpeg'
+import mikeTyler from '../assets/mikeTyler.jpeg'
+import ContactsCard from '../features/Contacts/ContactsCard';
+import coolBatman from '../assets/batman.jpeg'
+import coolPopeye from '../assets/popeye.jpg'
 
 export default function Contacts() {
   const [ firstName, setFirstName ] = useState("")
@@ -23,9 +30,70 @@ export default function Contacts() {
     setMessage('');
   };
 
+  const teamMembers = [
+    {
+      name: 'Phillip Basti',
+      role: 'Full Stack Software Engineer, with experience building full stack applications utilizing Django, React, PostgreSQL, Docker, and AWS.',
+      imageSrc: `${coolDeveloperLogo}`, // Replace with actual image paths
+      socialLinks: [
+        { url: 'https://github.com/successPhil', icon: `${gitHubIcon}` },
+        { url: 'https://www.linkedin.com/in/phillip-basti/', icon: `${linkdinIcon}` },
+        // Add other social links as needed
+      ],
+    },
+    {
+      name: 'Tyler Kendall',
+      role: 'Full Stack Software Engineeer Skilled in building comprehensive applications Proficient with Django, React, PostgreSQL, Docker, and AWS',
+      imageSrc: `${mikeTyler}`, // Replace with actual image paths
+      socialLinks: [
+        { url: 'https://github.com/successPhil', icon: gitHubIcon },
+        { url: 'https://www.linkedin.com/in/phillip-basti/', icon: linkdinIcon },
+        // Add other social links as needed
+      ],
+    },
+    {
+      name: 'Demond Gildon',
+      role: 'Full Stack Developer with a focus on Software Engineering, Extensive experience crafting end-to-end solutions, Mastery in Django, React, PostgreSQL, Docker, and AWS technologies',
+      imageSrc: `${coolBatman}`, // Replace with actual image paths
+      socialLinks: [
+        { url: 'https://github.com/successPhil', icon: `${gitHubIcon}` },
+        { url: 'https://www.linkedin.com/in/phillip-basti/', icon: `${linkdinIcon}` },
+        // Add other social links as needed
+      ],
+    },
+    {
+      name: 'Corey Sullivan',
+      role: 'Accomplished Full Stack Software Engineer, Expertise in developing robust applications, Utilizes a tech stack including Django, React, PostgreSQL, Docker, and AWS',
+      imageSrc: `${coolPopeye}`, // Replace with actual image paths
+      socialLinks: [
+        { url: 'https://github.com/successPhil', icon: `${gitHubIcon}` },
+        { url: 'https://www.linkedin.com/in/phillip-basti/', icon: `${linkdinIcon}` },
+        // Add other social links as needed
+      ],
+    },
+    // Add more team members as needed
+  ];
+
 
 
     return (
+      <div>
+          <div className="container">
+      <div className="row">
+        {teamMembers.map((member, index) => (
+          <div key={index} className="col-lg-3 col-md-6 mb-4">
+            <ContactsCard
+              name={member.name}
+              role={member.role}
+              imageSrc={member.imageSrc}
+              socialLinks={member.socialLinks}
+              className="contacts-card"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+        {/* <ContactsCard name={teamMembers.name} role={teamMembers.role} imageSrc={teamMembers.imageSrc} socialLinks={teamMembers.socialLinks}/> */}
         <div className="contact-form">
       <h1 className='contact-title'>Contact Us</h1>
       <FormControl component="form">
@@ -105,6 +173,7 @@ export default function Contacts() {
       <div style={{marginTop: '20px'}}>
       <SimpleSnackbar handleSnackbarClick={handleSnackbarClick}/>
       </div>
+    </div>
     </div>
   );
 }

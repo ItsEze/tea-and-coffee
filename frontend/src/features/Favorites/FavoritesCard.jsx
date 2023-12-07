@@ -13,14 +13,14 @@ export default function FavoritesCard( { favorites, handleReviews, handleLikes, 
           favorites?.map((coffee) => (
             <div key={coffee.id} className="col-lg-12 mb-4 ">
               <div className="card h-100">
-                <div className="row g-0 bg-warning-subtle">
+                <div className="row g-0 rounded p-2" style={{ backgroundColor: 'rgba(180, 112, 52, 0.5)', border: '3px solid #3C180E', color: '#3C180E'}}>
                   {/* Thumbnail */}
                   <div className="col-md-2">
                     <img
                       src={coffee.picture}
                       alt={coffee.name}
                       style={{height: '200px'}}
-                      className="img-thumbnail"
+                      className="img-thumbnail bg-warning-subtle bg-opacity-25 rounded"
                     />
                   </div>
                   {/* Card Body */}
