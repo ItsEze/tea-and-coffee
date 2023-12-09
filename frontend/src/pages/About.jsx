@@ -86,7 +86,7 @@ export default function About() {
     </div>
     <br/>
     <br/>
-    <button className="coffee-control-button"><span className='coffee-control-icon'><AutoAwesomeOutlinedIcon /></span> Suggest a feature</button>
+    
      {/* <button className="coffee-control-button"><AutoAwesomeOutlinedIcon /> Suggest a feature</button> */}
      </div>
    <Documentation/>

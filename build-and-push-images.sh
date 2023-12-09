@@ -10,7 +10,7 @@
 # instead of localhost
 ##############################
 
-DOCKERHUB_UNAME=successphil
+DOCKERHUB_UNAME=itsEze
 
 BASE_URL=$1
 NEW_VERSION=$2
