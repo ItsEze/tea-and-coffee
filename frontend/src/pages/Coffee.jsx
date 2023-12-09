@@ -21,6 +21,7 @@ export default function Coffee() {
     const [currentUser, setCurrentUser] = useState(null)
     const [ favorites, setFavorites ] = useState(null)
     const [filteredCoffees, setFilteredCoffees] = useState([])
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = (filteredSuggestions) => {
         setFilteredCoffees(filteredSuggestions)
@@ -55,9 +56,12 @@ export default function Coffee() {
     }
 
     useEffect(() => {
-        getCoffeeData()
-        const username = localStorage.getItem("username")
-        setCurrentUser(username)
+        const fetchData = async () => {
+            await getCoffeeData()
+            const username = localStorage.getItem("username")
+            setCurrentUser(username)
+        }
+        fetchData()
     }, [editReviewForm, addReviewForm])
 
     useEffect(() => {
@@ -138,13 +142,13 @@ export default function Coffee() {
     <div className="coffee-page">
         <div className="d-flex justify-content-evenly align-items-center flex-column flex-md-row my-2">
             <div>
-                <SearchBar state={coffees} setState={setCoffees} handleSearch={handleSearch} handleClearSearch={handleClearSearch}/>
+                <SearchBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} state={coffees} setState={setCoffees} handleSearch={handleSearch} handleClearSearch={handleClearSearch}/>
             </div>
             <div>
             <button id='add-coffee-button'className="coffee-control-button" onClick={handleAddCoffee}><span className='coffee-control-icon'><AddCircleOutlineOutlinedIcon /></span> New Coffee</button>
             </div>
             </div>
-    {filteredCoffees.length === 0 ? createCoffeeList(coffees) : createCoffeeList(filteredCoffees)}
+    {filteredCoffees.length === 0 && searchTerm === '' ? createCoffeeList(coffees) : createCoffeeList(filteredCoffees)}
     {addCoffeeForm && (
     <div className="rounded bg-warning-subtle p-4 popup-addcoffee-center">
     <AddCoffee handleAddCoffee={handleAddCoffee} getCoffeeData={getCoffeeData}/>

@@ -8,7 +8,7 @@ export default function AddReview({ coffeeId, handleAddReview }) {
   const navigate = useNavigate();
   const { userToken, coffees } = useContext(UserContext);
   const [text, setText] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(null);
   const [errors, setErrors] = useState(null);
 
   const capitalizeWords = (str) => {
@@ -26,7 +26,7 @@ export default function AddReview({ coffeeId, handleAddReview }) {
   
 
   const handleTextChange = (e) => setText(e.target.value);
-  const handleRatingChange = (e) => setRating(parseInt(e.target.value));
+  const handleRatingChange = (e) => setRating(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

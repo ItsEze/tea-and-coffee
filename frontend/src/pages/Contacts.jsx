@@ -12,6 +12,9 @@ import ContactsCard from '../features/Contacts/ContactsCard';
 import coolBatman from '../assets/batman.jpeg'
 import coreyPlaceholder from "../assets/coreyplaceholder.png"
 import tylerPicture from '../assets/half-body-headshot-tyler.jpg'
+import demondPicture from '../assets/Kitchen-Brown-Background-Crop.png'
+import coreyPicture from '../assets/ProfilePicture.png'
+import philPicture from '../assets/Phil-Headshot-Resized.jpg'
 
 export default function Contacts() {
   const [ firstName, setFirstName ] = useState("")
@@ -35,7 +38,7 @@ export default function Contacts() {
     {
       name: 'Phillip Basti',
       role: 'Full Stack Software Engineer, with experience building full stack applications utilizing Django, React, PostgreSQL, Docker, and AWS.',
-      imageSrc: `${coolDeveloperLogo}`, // Replace with actual image paths
+      imageSrc: `${philPicture}`, // Replace with actual image paths
       socialLinks: [
         { url: 'https://github.com/successPhil', icon: `${gitHubIcon}` },
         { url: 'https://www.linkedin.com/in/phillip-basti/', icon: `${linkdinIcon}` },
@@ -55,7 +58,7 @@ export default function Contacts() {
     {
       name: 'Demond Gildon',
       role: 'Full Stack Developer with a focus on Software Engineering, Extensive experience crafting end-to-end solutions, Mastery in Django, React, PostgreSQL, Docker, and AWS technologies',
-      imageSrc: `${coolBatman}`, // Replace with actual image paths
+      imageSrc: `${demondPicture}`, // Replace with actual image paths
       socialLinks: [
         { url: 'https://github.com/successPhil', icon: `${gitHubIcon}` },
         { url: 'https://www.linkedin.com/in/phillip-basti/', icon: `${linkdinIcon}` },
@@ -65,7 +68,7 @@ export default function Contacts() {
     {
       name: 'Corey Sullivan',
       role: 'Accomplished Full Stack Software Engineer, Expertise in developing robust applications, Utilizes a tech stack including Django, React, PostgreSQL, Docker, and AWS',
-      imageSrc: `${coreyPlaceholder}`, // Replace with actual image paths
+      imageSrc: `${coreyPicture}`, // Replace with actual image paths
       socialLinks: [
         { url: 'https://github.com/successPhil', icon: `${gitHubIcon}` },
         { url: 'https://www.linkedin.com/in/phillip-basti/', icon: `${linkdinIcon}` },

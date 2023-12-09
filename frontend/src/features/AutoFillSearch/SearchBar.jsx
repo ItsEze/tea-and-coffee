@@ -4,9 +4,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { InputAdornment, TextField } from '@mui/material';
 
 
-export default function SearchBar({state, setState, handleSearch, handleClearSearch}) {
+export default function SearchBar({state, setState, handleSearch, handleClearSearch, searchTerm, setSearchTerm }) {
     
-    const [searchTerm, setSearchTerm] = useState('');
     const [filteredSuggestions, setFilteredSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     
@@ -48,14 +47,18 @@ export default function SearchBar({state, setState, handleSearch, handleClearSea
             {showSuggestions && (
                 searchTerm !== '' && (
                     <div className="suggestions">
-                        {filteredSuggestions.map((suggestion, index) => (
-                            <p
+                        {filteredSuggestions.length === 0 ? (
+                            <p>No matching coffees found.</p>
+                        ) : (                           
+                            filteredSuggestions.map((suggestion, index) => (
+                                <p
                                 key={index}
                                 onClick={() => handleSuggestionClick(suggestion)}
-                            >
+                                >
                                 {suggestion.name}
-                            </p>
-                        ))}
+                                </p>
+                                ))
+                                )}
                     </div>
                 )
             )}
