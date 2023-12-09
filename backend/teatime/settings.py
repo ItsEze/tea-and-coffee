@@ -96,8 +96,8 @@ DATABASES = {
 "NAME": "teatime_db", 
 "USER": "postgres",
 "PASSWORD": "postgres",
-"HOST": "localhost",
-"PORT": 5454,
+"HOST": "db",
+"PORT": 5432,
     }
 }
 
